@@ -2,6 +2,9 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import datetime
 from selenium.webdriver.firefox.options import Options
+from pprint import pprint
+import csv
+
 
 def get_flights(destination, date, flight_type, driver):
     """
@@ -10,7 +13,7 @@ def get_flights(destination, date, flight_type, driver):
     time: time of day %Y-%m-%d
     flight_type: 'departure' or 'arrival'
     """
-    root_url = "https://www.sydneyairport.com.au/"
+    root_url = "https://www.sydneyairport.com.au"
     destination = destination.lower()
 
     url = f"https://www.sydneyairport.com.au/flights/" + \
@@ -27,6 +30,7 @@ def get_flights(destination, date, flight_type, driver):
     
     # Iterate through flight cards
     for flight in flights:
+        date = date
         airline = flight.find("span", {"class": "with-image"}).text
         number = flight.find("div", {"class": "flight-numbers"}).text
         schedule = flight.find("div", {"class": "large-scheduled-time"}
@@ -36,9 +40,18 @@ def get_flights(destination, date, flight_type, driver):
 
         url = root_url + flight.find("a", {"class": "detail-wrapper"})["href"]
 
-        flight_info.append((airline, number, schedule, arrival, url))
+        flight_info.append((date, airline, number, schedule, arrival, url))
 
     return flight_info
+
+
+def write_to_csv(flights, filename="flights.csv"):
+    f = open(filename, "w+", newline='')
+    writer = csv.writer(f)
+    for flight in flights:
+        writer.writerow(flight)
+
+    f.close()
 
 
 def create_driver():
@@ -61,14 +74,11 @@ def main():
 
     try:
         flights = get_flights("melbourne", "2021-07-14", "departure", driver)
-
-        for f in flights[0:5]:
-            print(f)
+        write_to_csv(flights)
 
     finally:
         print("Quitting driver")
         driver.quit()
-
 
 
 if __name__ == "__main__":
