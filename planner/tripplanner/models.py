@@ -16,17 +16,6 @@ class Trip(models.Model):
     def __str__(self):
         return f"Trip to {self.city}, {self.country}"
 
-
-class Hotel(models.Model):
-    name = models.CharField(max_length=200)
-    url = models.URLField(max_length=200)
-    trip = models.ForeignKey(Flight, on_delete=models.CASCADE)
-
-
-    def __str__(self):
-        return f"Hotel {self.name}"
-
-
 class Flight(models.Model):
     airline = models.CharField(max_length=200)
     airport_from = models.CharField(max_length=3)
@@ -44,6 +33,15 @@ class Flight(models.Model):
 
     def __str__(self):
         return f'Flight {airport_from}-{airport_to}'
+        
+class Hotel(models.Model):
+    name = models.CharField(max_length=200)
+    url = models.URLField(max_length=200)
+    trip = models.ForeignKey(Flight, on_delete=models.CASCADE)
+
+
+    def __str__(self):
+        return f"Hotel {self.name}"
 
 
 class Event(models.Model):
