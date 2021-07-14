@@ -13,9 +13,24 @@ from .models import *
 def home_view(request, *args, **kwargs):
     return render(request, "home.html", {})
 
-def index(request):
-    return HttpResponse("hello world. You're at the polls index.")
 
-class IndexView(generic.ListView):
-    template_name = "tripplanner/index.html"
+def planner_view(request):
+    template_name = "tripplanner/planner.html"
+
+    return render(request, template_name, {})
+
+
+def filter_flight_destination(request):
+    """
+    Dropdown menu filters flight's destination
+    """
+    try:
+        selected_choice = Flights.objects.filter(airplane_from__eq=request.GET['from'])
+    except (KeyError):
+        return render(request, "tripplanner/planner.html",
+            {"error_message": "Please select the city you are planning to travel to."})
+
+    
+
+
 
