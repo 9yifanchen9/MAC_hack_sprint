@@ -1,3 +1,5 @@
+from django.contrib import admin
+from django.urls import include, path
 """planner URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -17,5 +19,6 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
+    path('tripplanner/', include('tripplanner.urls')),
     path('admin/', admin.site.urls),
 ]
