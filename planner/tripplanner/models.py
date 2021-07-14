@@ -19,7 +19,7 @@ class Trip(models.Model):
 
 class Hotel(models.Model):
     name = models.CharField(max_length=200)
-    url = models.URLField(max_lenght=200)
+    url = models.URLField(max_length=200)
     trip = models.ForeignKey(Flight, on_delete=models.CASCADE)
 
 
@@ -46,7 +46,6 @@ class Flight(models.Model):
         return f'Flight {airport_from}-{airport_to}'
 
 
-# Create your models here.
 class Event(models.Model):
     day = models.DateField(u'Day of the event', help_text=u'Day of the event')
     start_time = models.TimeField(u'Starting time', help_text=u'Starting time')
