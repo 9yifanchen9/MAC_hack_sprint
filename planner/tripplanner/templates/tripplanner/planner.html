@@ -33,6 +33,7 @@
       $( "#date_to" ).datepicker();
     } );
     </script>
+
   </head>
 
 
@@ -50,13 +51,12 @@
 </div>
 
 
-<div class="col-lg-8 mx-auto p-3 py-md-5">
-  <main>
+<div class="col-lg-8 mx-auto p-3 py-md-5 w-50">
+  <main class="px-5">
     <form action="{% url 'tripplanner:plan_trip' %}" method="get">
-      <div class="row">
-        <div class="col">
-          <h4>From:</h4>
-          
+      <div class="form-group">
+        <div class="row">
+          <h5>From:</h5>
           {% if cities %}
           <select class="form-control form-control-lg">
             <option value="-"> - </option>
@@ -68,9 +68,8 @@
           <p> No cities </p>
           {% endif %}
         </div>
-        <div class="col">
-          <h4>To:</h4>
-          
+        <div class="row">
+          <h5>To:</h5>
           {% if cities %}
           <select class="form-control form-control-lg">
             <option value="-"> - </option>
@@ -82,17 +81,15 @@
           <p> No cities </p>
           {% endif %}
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <h4>Start date:</h4><input type="text" class="form-control" id="date_from">
+        <div class="row">
+          <h5>Start date:</h5><input type="text" class="form-control" id="date_from">
         </div>
-        <div class="col">
-          <h4>End date:</h4><input type="text" class="form-control" id="date_to">
+        <div class="row">
+          <h5>End date:</h5><input type="text" class="form-control" id="date_to">
         </div>
       </div>
       <br>
-      <button type="submit" name="from" class="btn btn-primary">Plan</button>
+      <button type="submit" name="plan" class="btn btn-primary">Plan</button>
     </form>
   </main>
 </div>

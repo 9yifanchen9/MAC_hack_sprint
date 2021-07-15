@@ -30,6 +30,9 @@ class PlannerView(generic.ListView):
 class TripView(generic.DetailView):
     model = Trip
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
     
 
 class CalendarView(generic.ListView):
