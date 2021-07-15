@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="clearfix buttons" id="bootstrap-overrides">
+	<a class="btn btn-secondary fw-bold left" id="left" href="{% url 'tripplanner:calendar' %}?{{ prev_month }}"> Previous Month </a>
+	<a class="btn btn-secondary fw-bold right" id="right" href="{% url 'tripplanner:calendar' %}?{{ next_month }}"> Next Month </a>
+</div>
 {{ calendar }}
 {% endblock %}

@@ -1,3 +1,4 @@
+
 .calendar {
     width: 98%;
     margin: auto;
@@ -35,4 +36,17 @@ padding: 0px 5px 0px 20px;
 
 a {
 color: #17a2b8;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+
+}
+
+.buttons {
+    margin: 15px;
 }
