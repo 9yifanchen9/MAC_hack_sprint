@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.safestring import mark_safe
 import calendar
 
+from .forms import EventForm
 from .models import *
 from .utils import Calendar
 
@@ -65,7 +66,6 @@ def next_month(d):
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
 
-<<<<<<< HEAD
 def event(request, event_id=None):
     instance = Event()
     if event_id:
@@ -78,7 +78,6 @@ def event(request, event_id=None):
         form.save()
         return HttpResponseRedirect(reverse('tripplanner:calendar'))
     return render(request, 'tripplanner/event.html', {'form': form})
-=======
 
 def filter_flight_destination(request):
     """
@@ -94,4 +93,3 @@ def filter_flight_destination(request):
 def plan_trip(request):
     return HttpResponseRedirect(reverse('calendar'))
 
->>>>>>> 32749cbac65b0d6c22eb68c85d75121acac25f89

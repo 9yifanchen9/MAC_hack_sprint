@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'tripplanner/index.css' %}">
 <header class="mb-auto">
 <div>
-  <h3 class="float-md-start mb-0">Trip Planner</h3>
   <nav class="nav nav-masthead justify-content-center float-md-end">
-    <a class="nav-link active" aria-current="page" href="#">Home</a>
-    <a class="nav-link" href="#">Features</a>
-    <a class="nav-link" href="#">Contact</a>
+    <a class="nav-link active" aria-current="page" href="{% url 'tripplanner:home' %}">Home</a>
+    <a class="nav-link" href="{% url 'tripplanner:planner' %}">Planner</a>
+    <a class="nav-link" href="{% url 'tripplanner:calendar' %}">Calendar</a>
   </nav>
 </div>
 </header>
