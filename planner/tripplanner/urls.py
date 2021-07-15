@@ -6,7 +6,6 @@ app_name = 'tripplanner'
 
 urlpatterns = [
     path('', views.home_view, name = 'home'),
-    path('', views.index, name='index'),
-    url(r'^index/$', views.index, name='index'),
     url(r'^calendar/$', views.CalendarView.as_view(), name='calendar'),
+    path('planner/', views.planner_view, name="planner")
 ]

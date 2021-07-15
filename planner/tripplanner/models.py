@@ -16,14 +16,17 @@ class Trip(models.Model):
     def __str__(self):
         return f"Trip to {self.city}, {self.country}"
 
+
 class Flight(models.Model):
-    airline = models.CharField(max_length=200)
-    airport_from = models.CharField(max_length=3)
-    airport_to = models.CharField(max_length=3)
+    airline = models.CharField(max_length=200, default="")
+    flight_no = models.CharField(max_length=200, default="")
+    airport_from = models.CharField(max_length=3, default="")
+    airport_to = models.CharField(max_length=3, default="")
 
     boarding_time = models.DateTimeField('boarding time')
     arrival_time = models.DateTimeField('arrival time')
 
+    url = models.URLField(max_length=200, default="")
 
     def get_duration(self):
         """
@@ -32,8 +35,9 @@ class Flight(models.Model):
         return arrival_time - boarding_time
 
     def __str__(self):
-        return f'Flight {airport_from}-{airport_to}'
-        
+        return f'Flight {self.airport_from}-{self.airport_to}'
+
+
 class Hotel(models.Model):
     name = models.CharField(max_length=200)
     url = models.URLField(max_length=200)
