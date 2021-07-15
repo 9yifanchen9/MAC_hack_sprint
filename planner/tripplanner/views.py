@@ -25,7 +25,7 @@ def filter_flight_destination(request):
     Dropdown menu filters flight's destination
     """
     try:
-        selected_choice = Flights.objects.filter(airplane_from__eq=request.GET['from'])
+        selected_choice = Flight.objects.filter(airplane_from__eq=request.GET['from'])
     except (KeyError):
         return render(request, "tripplanner/planner.html",
             {"error_message": "Please select the city you are planning to travel to."})

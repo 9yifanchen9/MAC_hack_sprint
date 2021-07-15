@@ -32,7 +32,7 @@ class Flight(models.Model):
         """
         Returns Datetime delta object of duration
         """
-        return arrival_time - boarding_time
+        return self.arrival_time - self.boarding_time
 
     def __str__(self):
         return f'Flight {self.airport_from}-{self.airport_to}'
