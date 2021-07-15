@@ -5,15 +5,17 @@ Event
 {% endblock %}
 
 {% block content %}
-<div class="clearfix buttons">
-  <a class="btn btn-secondary left" href="{% url 'tripplanner:calendar' %}"> Calendar </a>
-</div>
+<body class="bg-light">
+  <div class="clearfix buttons">
+    <a class="btn btn-secondary left" href="{% url 'tripplanner:calendar' %}"> Calendar </a>
+  </div>
 
-<form method="post">
-  {% csrf_token %}
-  <table class="form form-table">
-    {{ form }}
-    <tr><td colspan="2"><button type="submit" class="btn btn-secondary right"> Submit </button></td></tr>
-  </table>
-</form>
+  <form method="post">
+    {% csrf_token %}
+    <table class="form form-table">
+      {{ form }}
+      <tr><td colspan="2"><button type="submit" class="btn btn-secondary right"> Submit </button></td></tr>
+    </table>
+  </form>
+</body>
 {% endblock %}
