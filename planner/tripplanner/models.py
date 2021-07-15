@@ -19,8 +19,8 @@ class City(models.Model):
 class Flight(models.Model):
     airline = models.CharField(max_length=200, default="")
     flight_no = models.CharField(max_length=200, default="")
-    airport_from = models.ForeignKey(City, related_name="airport_from", on_delete=models.PROTECT)
-    airport_to = models.ForeignKey(City, related_name="airport_to", on_delete=models.PROTECT)
+    airport_from = models.ForeignKey(City, related_name="airport_from", on_delete=models.PROTECT, null=True)
+    airport_to = models.ForeignKey(City, related_name="airport_to", on_delete=models.PROTECT, null=True)
 
     boarding_time = models.DateTimeField('boarding time')
     arrival_time = models.DateTimeField('arrival time')
@@ -40,7 +40,7 @@ class Flight(models.Model):
 class Hotel(models.Model):
     name = models.CharField(max_length=200)
     url = models.URLField(max_length=200)
-    trip = models.ForeignKey(Flight, on_delete=models.PROTECT)
+    trip = models.ForeignKey(Flight, on_delete=models.PROTECT, null=True)
 
 
     def __str__(self):
@@ -68,9 +68,9 @@ class Trip(models.Model):
     """
     A trip in Australia
     """
-    city_from = models.ForeignKey(City, related_name="city_from", on_delete=models.PROTECT)
-    city_to = models.ForeignKey(City, related_name="city_to", on_delete=models.PROTECT)
-    flight = models.ForeignKey(Flight, on_delete=models.PROTECT)
+    city_from = models.ForeignKey(City, related_name="city_from", on_delete=models.PROTECT, null=True)
+    city_to = models.ForeignKey(City, related_name="city_to", on_delete=models.PROTECT, null=True)
+    flight = models.ForeignKey(Flight, on_delete=models.PROTECT, on_delete=models.PROTECT, null=True)
     start_date = models.DateTimeField('start date')
     end_date = models.DateTimeField('end date')
 
