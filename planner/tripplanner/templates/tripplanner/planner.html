@@ -9,11 +9,9 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
     <title>Planner</title>
+    
 
-    <!-- Bootstrap core CSS -->
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'tripplanner/index.css' %}">
 
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -21,38 +19,82 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+    <!-- Date picker jQuery -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    $( function() {
+      $( "#date_from" ).datepicker();
+    } );
+    </script>
+    <script>
+    $( function() {
+      $( "#date_to" ).datepicker();
+    } );
+    </script>
   </head>
-  <body>
-    
-<div class="col-lg-8 mx-auto p-3 py-md-5">
-  <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-    <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-      <span class="fs-4">Trip Planner</span>
-    </a>
+
+
+<body class="bg-light">
+<div class="header-container d-flex w-100 h-100 p-3 mx-auto flex-column text-center">
+  <header class="mb-auto">
+    <div>
+      <h3 class="float-md-start mb-0">Trip Planner</h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="page" href="{% url 'tripplanner:home' %}">Home</a>
+        <a class="nav-link" href="/calendar">Calendar</a>
+      </nav>
+    </div>
   </header>
+</div>
 
+
+<div class="col-lg-8 mx-auto p-3 py-md-5">
   <main>
-    <form action="." method="get">
-      <div class="form-group">
-        <h3>City</h3>
-        
-        {% if cities %}
-        <select class="form-control form-control-lg">
-          <option value="-"> - </option>
-        {% for city in cities %}
-          <option value="{{ city.code }}">{{ city.name }}</option>
-        {% endfor %}
-        </select>
-        {% else %}
-        <p> No cities </p>
-        {% endif %}
+    <form action="{% url 'tripplanner:plan_trip' %}" method="get">
+      <div class="row">
+        <div class="col">
+          <h4>From:</h4>
+          
+          {% if cities %}
+          <select class="form-control form-control-lg">
+            <option value="-"> - </option>
+          {% for city in cities %}
+            <option value="{{ city.code }}">{{ city.name }}</option>
+          {% endfor %}
+          </select>
+          {% else %}
+          <p> No cities </p>
+          {% endif %}
+        </div>
+        <div class="col">
+          <h4>To:</h4>
+          
+          {% if cities %}
+          <select class="form-control form-control-lg">
+            <option value="-"> - </option>
+          {% for city in cities %}
+            <option value="{{ city.code }}">{{ city.name }}</option>
+          {% endfor %}
+          </select>
+          {% else %}
+          <p> No cities </p>
+          {% endif %}
+        </div>
       </div>
-
+      <div class="row">
+        <div class="col">
+          <h4>Start date:</h4><input type="text" class="form-control" id="date_from">
+        </div>
+        <div class="col">
+          <h4>End date:</h4><input type="text" class="form-control" id="date_to">
+        </div>
+      </div>
       <br>
-      <button type="submit" name="from" class="btn btn-primary">Submit</button>
+      <button type="submit" name="from" class="btn btn-primary">Plan</button>
     </form>
   </main>
-
-</div>      
-  </body>
+</div>
+</body>
 </html>

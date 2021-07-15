@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
-from django.http import HttpResponse
 from datetime import datetime, date, timedelta
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.safestring import mark_safe
 import calendar
 
@@ -11,12 +11,11 @@ from .utils import Calendar
 
 
 def home_view(request, *args, **kwargs):
-    return render(request, "home.html", {})
-
+    return render(request, "tripplanner/index.html", {})
 
 
 class PlannerView(generic.ListView):
-    model = Trip
+    model = City
     template_name = "tripplanner/planner.html"
 
     def get_context_data(self, **kwargs):
@@ -28,15 +27,8 @@ class PlannerView(generic.ListView):
         return context
 
 
-def filter_flight_destination(request):
-    """
-    Dropdown menu filters flight's destination
-    """
-    try:
-        selected_choice = Flight.objects.filter(airplane_from__eq=request.GET['from'])
-    except (KeyError):
-        return render(request, "tripplanner/planner.html",
-            {"error_message": "Please select the city you are planning to travel to."})
+class TripView(generic.DetailView):
+    model = Trip
 
     
 
@@ -72,3 +64,19 @@ def next_month(d):
     next_month = last + timedelta(days=1)
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
+
+
+def filter_flight_destination(request):
+    """
+    Dropdown menu filters flight's destination
+    """
+    try:
+        selected_choice = Flight.objects.filter(airplane_from__eq=request.GET['from'])
+    except (KeyError):
+        return render(request, "tripplanner/planner.html",
+            {"error_message": "Please select the city you are planning to travel to."})
+
+
+def plan_trip(request):
+    return HttpResponseRedirect(reverse('calendar'))
+
