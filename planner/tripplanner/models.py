@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 import datetime
+from django.urls import reverse
 
 from django.db import models
 
@@ -55,10 +56,15 @@ class Event(models.Model):
 
     title = models.CharField(max_length=200)
     # day = models.DateField(u'Day of the event', help_text=u'Day of the event')
-    start_time = models.DateTimeField(u'Starting time', help_text=u'Starting time')
-    end_time = models.DateTimeField(u'Final time', help_text=u'Final time')
-    notes = models.TextField(u'Textual Notes', help_text=u'Textual Notes', blank=True, null=True)
- 
+    start_time = models.DateTimeField(u'Starting time', blank=True, null=True)
+    end_time = models.DateTimeField(u'Final time', blank=True, null=True)
+    notes = models.TextField(u'Textual Notes', blank=True, null=True)
+    
+    @property
+    def get_html_url(self):
+        url = reverse('tripplanner:event_edit', args=(self.id,))
+        return f'<a href="{url}"> {self.title} </a>'
+        
     class Meta:
         verbose_name = u'Scheduling'
         verbose_name_plural = u'Scheduling'
