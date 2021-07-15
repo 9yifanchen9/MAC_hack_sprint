@@ -70,7 +70,7 @@ class Trip(models.Model):
     """
     city_from = models.ForeignKey(City, related_name="city_from", on_delete=models.PROTECT, null=True)
     city_to = models.ForeignKey(City, related_name="city_to", on_delete=models.PROTECT, null=True)
-    flight = models.ForeignKey(Flight, on_delete=models.PROTECT, on_delete=models.PROTECT, null=True)
+    flight = models.ForeignKey(Flight, on_delete=models.PROTECT, null=True)
     start_date = models.DateTimeField('start date')
     end_date = models.DateTimeField('end date')
 
