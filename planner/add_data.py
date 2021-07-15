@@ -80,6 +80,23 @@ def main():
         print("Quitting driver")
         driver.quit()
 
+"""
+from tripplanner.models import *
+import add_data
+import datetime as dt
+import pytz
+
+mel = City(name="Melbourne", code="MEL")
+ad = City(name="Adelaide", code="ADL")
+syd = City(name="Sydney", code="SYD")
+dep_t = dt.datetime(year=2021, month=7, day=14, hour=6, minute=0,
+tzinfo=pytz.timezone("Australia/Sydney"))
+arr_t = dt.datetime(year=2021, month=7, day=14, hour=7, minute=35,
+tzinfo=pytz.timezone("Australia/Melbourne"))
+flight = Flight(airline="Jetstar", flight_no="JQ501", 
+    airport_from=syd, airport_to=mel, 
+    boarding_time=dep_t, arrival_time=arr_t)
+"""
 
 if __name__ == "__main__":
     main()

@@ -35,19 +35,23 @@
     <form action="." method="get">
       <div class="form-group">
         <h3>City</h3>
+        
+        {% if cities %}
         <select class="form-control form-control-lg">
-          <option value="MEL">Melbourne</option>
+          <option value="-"> - </option>
+        {% for city in cities %}
+          <option value="{{ city.code }}">{{ city.name }}</option>
+        {% endfor %}
         </select>
+        {% else %}
+        <p> No cities </p>
+        {% endif %}
       </div>
 
       <br>
       <button type="submit" name="from" class="btn btn-primary">Submit</button>
     </form>
   </main>
-
-  <footer class="pt-5 my-5 text-muted border-top">
-    Created by the Bootstrap team &middot; &copy; 2021
-  </footer>
 
 </div>      
   </body>

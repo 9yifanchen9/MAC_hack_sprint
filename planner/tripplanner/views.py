@@ -14,10 +14,18 @@ def home_view(request, *args, **kwargs):
     return render(request, "home.html", {})
 
 
-def planner_view(request):
+
+class PlannerView(generic.ListView):
+    model = Trip
     template_name = "tripplanner/planner.html"
 
-    return render(request, template_name, {})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Get all cities
+        context['cities'] = City.objects.all().order_by('name')
+
+        return context
 
 
 def filter_flight_destination(request):
@@ -31,8 +39,6 @@ def filter_flight_destination(request):
             {"error_message": "Please select the city you are planning to travel to."})
 
     
-
-
 
 class CalendarView(generic.ListView):
     model = Event
