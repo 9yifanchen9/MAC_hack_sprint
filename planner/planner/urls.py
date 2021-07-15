@@ -21,7 +21,6 @@ from django.urls import path
 from tripplanner.views import home_view
 
 urlpatterns = [
-    path('', home_view, name = 'home'),
-    path('tripplanner/', include('tripplanner.urls')),
+    path('', include('tripplanner.urls')),
     path('admin/', admin.site.urls),
 ]

@@ -45,9 +45,15 @@ class Hotel(models.Model):
 
 
 class Event(models.Model):
-    day = models.DateField(u'Day of the event', help_text=u'Day of the event')
-    start_time = models.TimeField(u'Starting time', help_text=u'Starting time')
-    end_time = models.TimeField(u'Final time', help_text=u'Final time')
+    # title = models.CharField(max_length=200)
+    # description = models.TextField()
+    # start_time = models.DateTimeField()
+    # end_time = models.DateTimeField()
+
+    title = models.CharField(max_length=200)
+    # day = models.DateField(u'Day of the event', help_text=u'Day of the event')
+    start_time = models.DateTimeField(u'Starting time', help_text=u'Starting time')
+    end_time = models.DateTimeField(u'Final time', help_text=u'Final time')
     notes = models.TextField(u'Textual Notes', help_text=u'Textual Notes', blank=True, null=True)
  
     class Meta:
