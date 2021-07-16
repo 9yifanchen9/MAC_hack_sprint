@@ -10,5 +10,6 @@ urlpatterns = [
     path('planner/', views.PlannerView.as_view(), name="planner"),
     url(r'^event/new/$', views.event, name='event_new'),
     url(r'^event/edit/(?P<event_id>\d+)/$', views.event, name='event_edit'),
-    path('', views.plan_trip, name='plan_trip'),
+    path('planner/plan/', views.plan_trip, name='plan_trip'),
+    path('planner/trip_<int:pk>/', views.TripView.as_view(), name='trip'),
 ]

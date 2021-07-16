@@ -5,6 +5,7 @@ from datetime import datetime, date, timedelta
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.safestring import mark_safe
 import calendar
+import pytz
 
 from .forms import EventForm
 from .models import *
@@ -30,6 +31,7 @@ class PlannerView(generic.ListView):
 
 class TripView(generic.DetailView):
     model = Trip
+    template_name = "tripplanner/trip.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -92,7 +94,33 @@ def filter_flight_destination(request):
         return render(request, "tripplanner/planner.html",
             {"error_message": "Please select the city you are planning to travel to."})
 
-
 def plan_trip(request):
-    return HttpResponseRedirect(reverse('calendar'))
+    print(request.POST)
+
+    # Cities
+    city_from = City.objects.filter(name=request.POST['city_from'][0])[0]
+    city_to = City.objects.filter(name=request.POST['city_to'][0])[0]
+
+
+
+    # Times
+    try:
+        start_date = dt.datetime.strptime(request.POST['start_date'][0], "%d/%m/%Y", 
+            tzinfo=pytz.timezone("Australia/Sydney"))
+        end_date = dt.datetime.strptime(request.POST['end_date'][0], "%d/%m/%Y", 
+            tzinfo=pytz.timezone("Australia/Sydney"))
+    except ValueError:
+        return HttpResponseRedirect(
+            reverse("triplanner:planner", args=("Invalid start and end dates",))
+            )
+
+    # Find flights
+    flights = Flight.objects.filter(city_from)
+
+
+    trip = Trip(city_from=city_from, city_to=city_to, 
+        flight=flight, start_date=start_date, end_date=end_date)
+
+
+    return HttpResponseRedirect(reverse(f'tripplanner:trip_{pk}'))
 

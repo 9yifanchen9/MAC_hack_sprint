@@ -33,7 +33,6 @@
       $( "#date_to" ).datepicker();
     } );
     </script>
-
   </head>
 
 
@@ -53,13 +52,14 @@
 
 <div class="col-lg-8 mx-auto p-3 py-md-5 w-50">
   <main class="px-5">
-    <form action="{% url 'tripplanner:plan_trip' %}" method="get">
+    <form action="{% url 'tripplanner:plan_trip' %}" method="post">
+      {% csrf_token %}
       <div class="form-group">
         <div class="row">
           <h5>From:</h5>
           {% if cities %}
-          <select class="form-control form-control-lg">
-            <option value="-"> - </option>
+          <select class="form-control form-control-lg" name="city_from">
+            <option value="-" selected="selected" disabled> - </option>
           {% for city in cities %}
             <option value="{{ city.code }}">{{ city.name }}</option>
           {% endfor %}
@@ -71,8 +71,8 @@
         <div class="row">
           <h5>To:</h5>
           {% if cities %}
-          <select class="form-control form-control-lg">
-            <option value="-"> - </option>
+          <select class="form-control form-control-lg" name="city_to">
+            <option value="-" selected="selected" disabled> - </option>
           {% for city in cities %}
             <option value="{{ city.code }}">{{ city.name }}</option>
           {% endfor %}
@@ -82,10 +82,10 @@
           {% endif %}
         </div>
         <div class="row">
-          <h5>Start date:</h5><input type="text" class="form-control" id="date_from">
+          <h5>Start date:</h5><input type="text" name="start_date" class="form-control" id="date_from">
         </div>
         <div class="row">
-          <h5>End date:</h5><input type="text" class="form-control" id="date_to">
+          <h5>End date:</h5><input type="text" name="end_date" class="form-control" id="date_to">
         </div>
       </div>
       <br>

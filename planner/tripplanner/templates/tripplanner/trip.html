@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Trip
+{% endblock %}
+
+{% block content %}
+<div class="clearfix buttons">
+  <a class="btn btn-secondary left" href="{% url 'tripplanner:calendar' %}"> Calendar </a>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <table class="form form-table">
+    {{ form }}
+    <tr><td colspan="2"><button type="submit" class="btn btn-secondary right"> Submit </button></td></tr>
+  </table>
+</form>
+{% endblock %}
